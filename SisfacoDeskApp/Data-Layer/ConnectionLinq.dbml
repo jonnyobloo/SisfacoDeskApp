@@ -1,0 +1,1277 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SisfacoDatabase" Class="ConnectionLinqDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=SisfacoDatabase;Integrated Security=True" SettingsObjectName="SisfacoDeskApp.Properties.Settings" SettingsPropertyName="SisfacoDatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Cat_Empleado" Member="Cat_Empleado">
+    <Type Name="Cat_Empleado">
+      <Column Name="Num_Empleado" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Num_Persona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NoInss" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Genero" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EstadoCivil" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Cat_Empleado_Cat_Usuario" Member="Cat_Usuario" ThisKey="Num_Empleado" OtherKey="Num_Emp" Type="Cat_Usuario" />
+      <Association Name="Cat_Empleado_Cat_Compra" Member="Cat_Compra" ThisKey="Num_Empleado" OtherKey="Num_Empleado" Type="Cat_Compra" />
+      <Association Name="Cat_Empleado_tbl_DetalleCargoEmpleado" Member="tbl_DetalleCargoEmpleado" ThisKey="Num_Empleado" OtherKey="NumEmpleado" Type="tbl_DetalleCargoEmpleado" />
+      <Association Name="Cat_Persona_Cat_Empleado" Member="Cat_Persona" ThisKey="Num_Persona" OtherKey="Num_Persona" Type="Cat_Persona" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cat_Persona" Member="Cat_Persona">
+    <Type Name="Cat_Persona">
+      <Column Name="Num_Persona" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Cedula_Ruc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido_RazonSocial" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FechaNac_FechaConst" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Direccion" Type="System.String" DbType="NVarChar(90)" CanBeNull="true" />
+      <Association Name="Cat_Persona_Cat_Empleado" Member="Cat_Empleado" ThisKey="Num_Persona" OtherKey="Num_Persona" Type="Cat_Empleado" />
+      <Association Name="Cat_Persona_Cat_Proveedor" Member="Cat_Proveedor" ThisKey="Num_Persona" OtherKey="Num_Persona" Type="Cat_Proveedor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cat_Usuario" Member="Cat_Usuario">
+    <Type Name="Cat_Usuario">
+      <Column Name="Cod_Usuario" Type="System.String" DbType="NVarChar(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Num_Emp" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NombreUsu" Type="System.String" DbType="NVarChar(35) NOT NULL" CanBeNull="false" />
+      <Column Name="Pass" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Roles" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Autorizadox" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Cat_Empleado_Cat_Usuario" Member="Cat_Empleado" ThisKey="Num_Emp" OtherKey="Num_Empleado" Type="Cat_Empleado" IsForeignKey="true" />
+      <Association Name="tbl_Roles_Cat_Usuario" Member="tbl_Roles" ThisKey="Roles" OtherKey="Id_Rol" Type="tbl_Roles" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_AreaEmpresarial" Member="tbl_AreaEmpresarial">
+    <Type Name="tbl_AreaEmpresarial">
+      <Column Name="Id_AreaEmpresarial" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre_AreaEmp" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion_AreaEmp" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_AreaEmpresarial_tbl_Cargo" Member="tbl_Cargo" ThisKey="Id_AreaEmpresarial" OtherKey="Area_Empresarial" Type="tbl_Cargo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Cargo" Member="tbl_Cargo">
+    <Type Name="tbl_Cargo">
+      <Column Name="Num_Cargo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Descripcion_Cargo" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="Area_Empresarial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Vigencia" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha_Creacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="tbl_Cargo_tbl_DetalleCargoEmpleado" Member="tbl_DetalleCargoEmpleado" ThisKey="Num_Cargo" OtherKey="Num_Cargo" Type="tbl_DetalleCargoEmpleado" />
+      <Association Name="tbl_AreaEmpresarial_tbl_Cargo" Member="tbl_AreaEmpresarial" ThisKey="Area_Empresarial" OtherKey="Id_AreaEmpresarial" Type="tbl_AreaEmpresarial" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Marca" Member="tbl_Marca">
+    <Type Name="tbl_Marca">
+      <Column Name="Id_Marca" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Marca_Producto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cat_Pais" Member="Cat_Pais">
+    <Type Name="Cat_Pais">
+      <Column Name="Id_Pais" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre_Pais" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CodigoPais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Cat_Pais_tbl_Provincia" Member="tbl_Provincia" ThisKey="Id_Pais" OtherKey="Pais" Type="tbl_Provincia" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Provincia" Member="tbl_Provincia">
+    <Type Name="tbl_Provincia">
+      <Column Name="Id_Provincia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Pais" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Provincia" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_Provincia_Cat_Proveedor" Member="Cat_Proveedor" ThisKey="Id_Provincia" OtherKey="Provincia" Type="Cat_Proveedor" />
+      <Association Name="Cat_Pais_tbl_Provincia" Member="Cat_Pais" ThisKey="Pais" OtherKey="Id_Pais" Type="Cat_Pais" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_UnidadMedida" Member="tbl_UnidadMedida">
+    <Type Name="tbl_UnidadMedida">
+      <Column Name="Id_UnidadMedida" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TipoMedida" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cat_Proveedor" Member="Cat_Proveedor">
+    <Type Name="Cat_Proveedor">
+      <Column Name="Num_Proveedor" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Num_Persona" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Provincia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="politica_venta" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="PaginaWeb_Correo" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="Cat_Proveedor_Cat_Compra" Member="Cat_Compra" ThisKey="Num_Proveedor" OtherKey="Num_Proveedor" Type="Cat_Compra" />
+      <Association Name="Cat_Persona_Cat_Proveedor" Member="Cat_Persona" ThisKey="Num_Persona" OtherKey="Num_Persona" Type="Cat_Persona" IsForeignKey="true" />
+      <Association Name="tbl_Provincia_Cat_Proveedor" Member="tbl_Provincia" ThisKey="Provincia" OtherKey="Id_Provincia" Type="tbl_Provincia" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_GarantiaProducto" Member="tbl_GarantiaProducto">
+    <Type Name="tbl_GarantiaProducto">
+      <Column Name="Id_Garantia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TipoGarantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tiempo_Garantia" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Taller_Garantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Observacion" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cat_Compra" Member="Cat_Compra">
+    <Type Name="Cat_Compra">
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Num_Empleado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Num_Proveedor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Tipo_pago" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
+      <Column Name="Medio_Pago" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="SubTotal_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IVA_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Descuento_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total_Compra" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Fecha_Registro" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Autorizacion_Compra" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Association Name="Cat_Compra_tbl_Detalle_Compra" Member="tbl_Detalle_Compra" ThisKey="Num_Compra" OtherKey="Num_Compra" Type="tbl_Detalle_Compra" />
+      <Association Name="Cat_Empleado_Cat_Compra" Member="Cat_Empleado" ThisKey="Num_Empleado" OtherKey="Num_Empleado" Type="Cat_Empleado" IsForeignKey="true" />
+      <Association Name="Cat_Proveedor_Cat_Compra" Member="Cat_Proveedor" ThisKey="Num_Proveedor" OtherKey="Num_Proveedor" Type="Cat_Proveedor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_EstadoCompra" Member="tbl_EstadoCompra">
+    <Type Name="tbl_EstadoCompra">
+      <Column Name="Num_Estado" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DetalleCompra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaEstado" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="tbl_Detalle_Compra_tbl_EstadoCompra" Member="tbl_Detalle_Compra" ThisKey="DetalleCompra" OtherKey="Num_DetalleCompra" Type="tbl_Detalle_Compra" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Detalle_Compra" Member="tbl_Detalle_Compra">
+    <Type Name="tbl_Detalle_Compra">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_Detalle_Compra_tbl_EstadoCompra" Member="tbl_EstadoCompra" ThisKey="Num_DetalleCompra" OtherKey="DetalleCompra" Type="tbl_EstadoCompra" />
+      <Association Name="Cat_Compra_tbl_Detalle_Compra" Member="Cat_Compra" ThisKey="Num_Compra" OtherKey="Num_Compra" Type="Cat_Compra" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_DetalleCargoEmpleado" Member="tbl_DetalleCargoEmpleado">
+    <Type Name="tbl_DetalleCargoEmpleado">
+      <Column Name="Id_DetalleCargoImpuesto" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Num_Cargo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumEmpleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Autorizado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Ingresado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Vigencia" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCargoAsignado" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="tbl_Cargo_tbl_DetalleCargoEmpleado" Member="tbl_Cargo" ThisKey="Num_Cargo" OtherKey="Num_Cargo" Type="tbl_Cargo" IsForeignKey="true" />
+      <Association Name="Cat_Empleado_tbl_DetalleCargoEmpleado" Member="Cat_Empleado" ThisKey="NumEmpleado" OtherKey="Num_Empleado" Type="Cat_Empleado" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Inventario" Member="tbl_Inventario">
+    <Type Name="tbl_Inventario">
+      <Column Name="Cod_Inventario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Fecha_Registro_Inv" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Existencia" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Disponibilidad" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="StockMin" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="StockMax" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Moneda" Member="tbl_Moneda">
+    <Type Name="tbl_Moneda">
+      <Column Name="Id_Moneda" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Moneda" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Origen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha_Registro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbl_Moneda_tbl_TasaCambio" Member="tbl_TasaCambio" ThisKey="Id_Moneda" OtherKey="Moneda" Type="tbl_TasaCambio" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_TasaCambio" Member="tbl_TasaCambio">
+    <Type Name="tbl_TasaCambio">
+      <Column Name="Id_TasaCambio" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Moneda" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TipoCambio" Type="System.Decimal" DbType="Decimal(16,2)" CanBeNull="true" />
+      <Column Name="Vigente" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaReg" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="tbl_Moneda_tbl_TasaCambio" Member="tbl_Moneda" ThisKey="Moneda" OtherKey="Id_Moneda" Type="tbl_Moneda" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Roles" Member="tbl_Roles">
+    <Type Name="tbl_Roles">
+      <Column Name="Id_Rol" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Tipo_Rol" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCreacion" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbl_Roles_Cat_Usuario" Member="Cat_Usuario" ThisKey="Id_Rol" OtherKey="Roles" Type="Cat_Usuario" />
+    </Type>
+  </Table>
+  <Function Name="dbo.Query_Code_Usuario" Method="Query_Code_Usuario">
+    <ElementType Name="Query_Code_UsuarioResult">
+      <Column Name="" Member="Column1" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_AreaEmpresarial" Method="Query_Code_AreaEmpresarial">
+    <ElementType Name="Query_Code_AreaEmpresarialResult">
+      <Column Name="Id_AreaEmpresarial" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_AreaEmpresarial" Method="Query_AreaEmpresarial">
+    <ElementType Name="Query_AreaEmpresarialResult">
+      <Column Name="Id_AreaEmpresarial" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_AreaEmp" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion_AreaEmp" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_AreaEmpresarial" Method="DinamicQuery_AreaEmpresarial">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_AreaEmpresarialResult">
+      <Column Name="Id_AreaEmpresarial" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_AreaEmp" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion_AreaEmp" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Cargo" Method="Query_Code_Cargo">
+    <ElementType Name="Query_Code_CargoResult">
+      <Column Name="Num_Cargo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Cargo" Method="Insert_Cargo">
+    <Parameter Name="Codigo" Parameter="codigo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Descripcion_Cargo" Parameter="descripcion_Cargo" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Area_Empresarial" Parameter="area_Empresarial" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Vigencia" Parameter="vigencia" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Insert_CargoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_AreaEmpresarial" Method="Insert_AreaEmpresarial">
+    <Parameter Name="Nombre_AreaEmp" Parameter="nombre_AreaEmp" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion_AreaEmp" Parameter="descripcion_AreaEmp" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="Insert_AreaEmpresarialResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Cargo" Method="DinamicQuery_Cargo">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_CargoResult">
+      <Column Name="Num_Cargo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion_Cargo" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_AreaEmp" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Vigencia" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha_Creacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Cargo" Method="Query_Cargo">
+    <ElementType Name="Query_CargoResult">
+      <Column Name="Num_Cargo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion_Cargo" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_AreaEmp" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Vigencia" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha_Creacion" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_AreaEmpresarial" Method="Update_AreaEmpresarial">
+    <Parameter Name="Id_AreaEmpresarial" Parameter="id_AreaEmpresarial" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Nombre_AreaEmp" Parameter="nombre_AreaEmp" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion_AreaEmp" Parameter="descripcion_AreaEmp" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="Update_AreaEmpresarialResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Persona" Method="Insert_Persona">
+    <Parameter Name="Num_Persona" Parameter="num_Persona" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cedula_Ruc" Parameter="cedula_Ruc" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Nombre_Pers_Empresa" Parameter="nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Apellido" Parameter="apellido" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="FechaNac_FechaConst" Parameter="fechaNac_FechaConst" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Direccion" Parameter="direccion" Type="System.String" DbType="NVarChar(90)" />
+    <ElementType Name="Insert_PersonaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Empleado" Method="DinamicQuery_Empleado">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_EmpleadoResult">
+      <Column Name="Num_Empleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido_RazonSocial" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FechaNac_FechaConst" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Direccion" Type="System.String" DbType="NVarChar(90)" CanBeNull="true" />
+      <Column Name="NoInss" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Genero" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EstadoCivil" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Empleado" Method="Query_Empleado">
+    <ElementType Name="Query_EmpleadoResult">
+      <Column Name="Num_Empleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido_RazonSocial" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FechaNac_FechaConst" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Direccion" Type="System.String" DbType="NVarChar(90)" CanBeNull="true" />
+      <Column Name="NoInss" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Genero" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="EstadoCivil" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="Correo" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Empleado" Method="Insert_Empleado">
+    <Parameter Name="Num_Empleado" Parameter="num_Empleado" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Persona" Parameter="num_Persona" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NoInss" Parameter="noInss" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Genero" Parameter="genero" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="EstadoCivil" Parameter="estadoCivil" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(40)" />
+    <ElementType Name="Insert_EmpleadoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Empleado" Method="Query_Code_Empleado">
+    <ElementType Name="Query_Code_EmpleadoResult">
+      <Column Name="Num_Empleado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Persona" Method="Query_Code_Persona">
+    <ElementType Name="Query_Code_PersonaResult">
+      <Column Name="Num_Persona" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Cargo" Method="Update_Cargo">
+    <Parameter Name="Num_Cargo" Parameter="num_Cargo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Descripcion_Cargo" Parameter="descripcion_Cargo" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Area_Empresarial" Parameter="area_Empresarial" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Vigencia" Parameter="vigencia" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Update_CargoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Empleado" Method="Update_Empleado">
+    <Parameter Name="Num_Empleado" Parameter="num_Empleado" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Persona" Parameter="num_Persona" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NoInss" Parameter="noInss" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Genero" Parameter="genero" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="EstadoCivil" Parameter="estadoCivil" Type="System.String" DbType="NVarChar(15)" />
+    <Parameter Name="Correo" Parameter="correo" Type="System.String" DbType="NVarChar(40)" />
+    <ElementType Name="Update_EmpleadoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Persona" Method="Update_Persona">
+    <Parameter Name="Cedula_Ruc" Parameter="cedula_Ruc" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Nombre_Pers_Empresa" Parameter="nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Apellido" Parameter="apellido" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="FechaNac_FechaConst" Parameter="fechaNac_FechaConst" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Telefono" Parameter="telefono" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Direccion" Parameter="direccion" Type="System.String" DbType="NVarChar(90)" />
+    <ElementType Name="Update_PersonaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Usuario" Method="Query_Usuario">
+    <ElementType Name="Query_UsuarioResult">
+      <Column Name="Cod_Usuario" Type="System.String" DbType="NVarChar(11) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido_RazonSocial" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Pass" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="Tipo_Rol" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Autorizadox" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Roles" Method="Query_Roles">
+    <ElementType Name="Query_RolesResult">
+      <Column Name="Id_Rol" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_Rol" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Rol" Method="Query_Code_Rol">
+    <ElementType Name="Query_Code_RolResult">
+      <Column Name="Id_Rol" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Roles" Method="DinamicQuery_Roles">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_RolesResult">
+      <Column Name="Id_Rol" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_Rol" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Usuario" Method="DinamicQuery_Usuario">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_UsuarioResult">
+      <Column Name="Cod_Usuario" Type="System.String" DbType="NVarChar(11) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido_RazonSocial" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Pass" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Foto" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" />
+      <Column Name="Tipo_Rol" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Autorizadox" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Rol" Method="Update_Rol">
+    <Parameter Name="Id_Rol" Parameter="id_Rol" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Tipo_Rol" Parameter="tipo_Rol" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Update_RolResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Usuario" Method="Insert_Usuario">
+    <Parameter Name="Num_Emp" Parameter="num_Emp" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NombreUsu" Parameter="nombreUsu" Type="System.String" DbType="VarChar(35)" />
+    <Parameter Name="Pass" Parameter="pass" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Foto" Parameter="foto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="Roles" Parameter="roles" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Autorizadox" Parameter="autorizadox" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Estado" Parameter="estado" Type="System.String" DbType="NVarChar(10)" />
+    <ElementType Name="Insert_UsuarioResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Marca" Method="Insert_Marca">
+    <Parameter Name="Marca_Producto" Parameter="marca_Producto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Observaciones" Parameter="observaciones" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Insert_MarcaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Marca" Method="Query_Code_Marca">
+    <ElementType Name="Query_Code_MarcaResult">
+      <Column Name="Id_Marca" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Marca" Method="Query_Marca">
+    <ElementType Name="Query_MarcaResult">
+      <Column Name="Id_Marca" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marca_Producto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Marca" Method="Update_Marca">
+    <Parameter Name="Id_Marca" Parameter="id_Marca" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Marca_Producto" Parameter="marca_Producto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Observaciones" Parameter="observaciones" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Update_MarcaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Marca" Method="DinamicQuery_Marca">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_MarcaResult">
+      <Column Name="Id_Marca" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marca_Producto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_CategoriaProducto" Method="DinamicQuery_CategoriaProducto">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_CategoriaProductoResult">
+      <Column Name="Id_CategoriaProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_SubCategoriaProducto" Method="DinamicQuery_SubCategoriaProducto">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_SubCategoriaProductoResult">
+      <Column Name="Id_SubCategoriaProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SubCategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_SubCategoriaProducto" Method="Update_SubCategoriaProducto">
+    <Parameter Name="Id_SubCategoriaProducto" Parameter="id_SubCategoriaProducto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoriaProducto" Parameter="categoriaProducto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SubCategoriaProducto" Parameter="subCategoriaProducto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Update_SubCategoriaProductoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_CategoriaProducto" Method="Update_CategoriaProducto">
+    <Parameter Name="Id_CategoriaProducto" Parameter="id_CategoriaProducto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoriaProducto" Parameter="categoriaProducto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Update_CategoriaProductoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Categoria" Method="Insert_Categoria">
+    <Parameter Name="CategoriaProducto" Parameter="categoriaProducto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Insert_CategoriaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_SubCategoria" Method="Insert_SubCategoria">
+    <Parameter Name="CategoriaProducto" Parameter="categoriaProducto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SubCategoriaProducto" Parameter="subCategoriaProducto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Insert_SubCategoriaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_SubCategoriaProducto" Method="Query_Code_SubCategoriaProducto">
+    <ElementType Name="Query_Code_SubCategoriaProductoResult">
+      <Column Name="Id_SubCategoriaProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_CategoriaProducto" Method="Query_Code_CategoriaProducto">
+    <ElementType Name="Query_Code_CategoriaProductoResult">
+      <Column Name="Id_CategoriaProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_CategoriaProducto" Method="Query_CategoriaProducto">
+    <ElementType Name="Query_CategoriaProductoResult">
+      <Column Name="Id_CategoriaProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_SubCategoriaProducto" Method="Query_SubCategoriaProducto">
+    <ElementType Name="Query_SubCategoriaProductoResult">
+      <Column Name="Id_SubCategoriaProducto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SubCategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_BlockUser" Method="Update_BlockUser">
+    <Parameter Name="NombreUsu" Parameter="nombreUsu" Type="System.String" DbType="NVarChar(35)" />
+    <ElementType Name="Update_BlockUserResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_ActiveUser" Method="Update_ActiveUser">
+    <Parameter Name="NombreUsu" Parameter="nombreUsu" Type="System.String" DbType="NVarChar(35)" />
+    <Parameter Name="Pass" Parameter="pass" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Update_ActiveUserResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_InactiveUser" Method="Update_InactiveUser">
+    <Parameter Name="NombreUsu" Parameter="nombreUsu" Type="System.String" DbType="NVarChar(35)" />
+    <ElementType Name="Update_InactiveUserResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UserAccess" Method="UserAccess">
+    <Parameter Name="NombreUsu" Parameter="nombreUsu" Type="System.String" DbType="NVarChar(35)" />
+    <Parameter Name="Pass" Parameter="pass" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="UserAccessResult">
+      <Column Name="NombreUsu" Type="System.String" DbType="NVarChar(35) NOT NULL" CanBeNull="false" />
+      <Column Name="Pass" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Pais" Method="DinamicQuery_Pais">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_PaisResult">
+      <Column Name="Id_Pais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pais" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CodigoPais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Provincia" Method="DinamicQuery_Provincia">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_ProvinciaResult">
+      <Column Name="Id_Provincia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pais" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Provincia" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_UnidadMedida" Method="DinamicQuery_UnidadMedida">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_UnidadMedidaResult">
+      <Column Name="Id_UnidadMedida" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TipoMedida" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Provincia" Method="Insert_Provincia">
+    <Parameter Name="Pais" Parameter="pais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Provincia" Parameter="provincia" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="Insert_ProvinciaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Pais" Method="Insert_Pais">
+    <Parameter Name="Nombre_Pais" Parameter="nombre_Pais" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="CodigoPais" Parameter="codigoPais" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Insert_PaisResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_UnidadMedida" Method="Insert_UnidadMedida">
+    <Parameter Name="TipoMedida" Parameter="tipoMedida" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Insert_UnidadMedidaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Pais" Method="Update_Pais">
+    <Parameter Name="Id_Pais" Parameter="id_Pais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre_Pais" Parameter="nombre_Pais" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="CodigoPais" Parameter="codigoPais" Type="System.Int32" DbType="Int" />
+    <ElementType Name="Update_PaisResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Provincia" Method="Update_Provincia">
+    <Parameter Name="Id_Provincia" Parameter="id_Provincia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Pais" Parameter="pais" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Provincia" Parameter="provincia" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="Update_ProvinciaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_UnidadMedida" Method="Update_UnidadMedida">
+    <Parameter Name="Id_UnidadMedida" Parameter="id_UnidadMedida" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TipoMedida" Parameter="tipoMedida" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="Descripcion" Parameter="descripcion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Update_UnidadMedidaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Pais" Method="Query_Pais">
+    <ElementType Name="Query_PaisResult">
+      <Column Name="Id_Pais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pais" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CodigoPais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Provincia" Method="Query_Provincia">
+    <ElementType Name="Query_ProvinciaResult">
+      <Column Name="Id_Provincia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pais" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Provincia" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_UnidadMedida" Method="Query_UnidadMedida">
+    <ElementType Name="Query_UnidadMedidaResult">
+      <Column Name="Id_UnidadMedida" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TipoMedida" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Pais" Method="Query_Code_Pais">
+    <ElementType Name="Query_Code_PaisResult">
+      <Column Name="Id_Pais" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Provincia" Method="Query_Code_Provincia">
+    <ElementType Name="Query_Code_ProvinciaResult">
+      <Column Name="Id_Provincia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_UnidadMedida" Method="Query_Code_UnidadMedida">
+    <ElementType Name="Query_Code_UnidadMedidaResult">
+      <Column Name="Id_UnidadMedida" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Proveedor" Method="Update_Proveedor">
+    <Parameter Name="Num_Proveedor" Parameter="num_Proveedor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Provincia" Parameter="provincia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="politica_venta" Type="System.String" DbType="NVarChar(7)" />
+    <Parameter Name="PaginaWeb_Correo" Parameter="paginaWeb_Correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Estado" Parameter="estado" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Observaciones" Parameter="observaciones" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Update_ProveedorResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Proveedor" Method="Query_Code_Proveedor">
+    <ElementType Name="Query_Code_ProveedorResult">
+      <Column Name="Num_Proveedor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Proveedor" Method="Insert_Proveedor">
+    <Parameter Name="Num_Proveedor" Parameter="num_Proveedor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Persona" Parameter="num_Persona" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Provincia" Parameter="provincia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="politica_venta" Type="System.String" DbType="NVarChar(7)" />
+    <Parameter Name="PaginaWeb_Correo" Parameter="paginaWeb_Correo" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Estado" Parameter="estado" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Observaciones" Parameter="observaciones" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Insert_ProveedorResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Proveedor" Method="Query_Proveedor">
+    <ElementType Name="Query_ProveedorResult">
+      <Column Name="Num_Proveedor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cedula_Ruc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Direccion" Type="System.String" DbType="NVarChar(90)" CanBeNull="true" />
+      <Column Name="Nombre_Pais" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Provincia" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="politica_venta" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="PaginaWeb_Correo" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Proveedor" Method="DinamicQuery_Proveedor">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_ProveedorResult">
+      <Column Name="Num_Proveedor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Cedula_Ruc" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Direccion" Type="System.String" DbType="NVarChar(90)" CanBeNull="true" />
+      <Column Name="Nombre_Pais" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Provincia" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="politica_venta" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="PaginaWeb_Correo" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Garantia" Method="DinamicQuery_Garantia">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_GarantiaResult">
+      <Column Name="Id_Garantia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TipoGarantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tiempo_Garantia" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Taller_Garantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Observacion" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Garantia" Method="Insert_Garantia">
+    <Parameter Name="TipoGarantia" Parameter="tipoGarantia" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Tiempo_Garantia" Parameter="tiempo_Garantia" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Taller_Garantia" Parameter="taller_Garantia" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Observacion" Parameter="observacion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Insert_GarantiaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Garantia" Method="Query_Code_Garantia">
+    <ElementType Name="Query_Code_GarantiaResult">
+      <Column Name="Id_Garantia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Garantia" Method="Query_Garantia">
+    <ElementType Name="Query_GarantiaResult">
+      <Column Name="Id_Garantia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TipoGarantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tiempo_Garantia" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Taller_Garantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Observacion" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Producto" Method="DinamicQuery_Producto">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_ProductoResult">
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SubCategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Marca_Producto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Modelo" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="TipoGarantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tiempo_Garantia" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TipoMedida" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Dimensiones" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion_producto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Foto_Producto" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Producto" Method="Insert_Producto">
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre_Prod" Parameter="nombre_Prod" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="SubCategoria" Parameter="subCategoria" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Marca" Parameter="marca" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Modelo" Parameter="modelo" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Garantia" Parameter="garantia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UnidadMedida" Parameter="unidadMedida" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Dimensiones" Parameter="dimensiones" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion_producto" Parameter="descripcion_producto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Foto_Producto" Parameter="foto_Producto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="Observaciones" Parameter="observaciones" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Insert_ProductoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Producto" Method="Query_Code_Producto">
+    <ElementType Name="Query_Code_ProductoResult">
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Producto" Method="Query_Producto">
+    <ElementType Name="Query_ProductoResult">
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SubCategoriaProducto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Marca_Producto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Modelo" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="TipoGarantia" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tiempo_Garantia" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TipoMedida" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Dimensiones" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion_producto" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Foto_Producto" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Producto" Method="Update_Producto">
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Nombre_Prod" Parameter="nombre_Prod" Type="System.String" DbType="NVarChar(30)" />
+    <Parameter Name="SubCategoria" Parameter="subCategoria" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Marca" Parameter="marca" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Modelo" Parameter="modelo" Type="System.String" DbType="NVarChar(60)" />
+    <Parameter Name="Garantia" Parameter="garantia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UnidadMedida" Parameter="unidadMedida" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Dimensiones" Parameter="dimensiones" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Descripcion_producto" Parameter="descripcion_producto" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Foto_Producto" Parameter="foto_Producto" Type="System.Data.Linq.Binary" DbType="Image" />
+    <Parameter Name="Observaciones" Parameter="observaciones" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Update_ProductoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Garantia" Method="Update_Garantia">
+    <Parameter Name="Id_Garantia" Parameter="id_Garantia" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TipoGarantia" Parameter="tipoGarantia" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Tiempo_Garantia" Parameter="tiempo_Garantia" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="Taller_Garantia" Parameter="taller_Garantia" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Observacion" Parameter="observacion" Type="System.String" DbType="NVarChar(200)" />
+    <ElementType Name="Update_GarantiaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_EstadoCompra" Method="Insert_EstadoCompra">
+    <Parameter Name="Num_Estado" Parameter="num_Estado" Type="System.Int32" DbType="Int" />
+    <Parameter Name="DetalleCompra" Parameter="detalleCompra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TipoEstado" Parameter="tipoEstado" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Insert_EstadoCompraResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_EstadoCompra" Method="Query_Code_EstadoCompra">
+    <ElementType Name="Query_Code_EstadoCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_DetalleCompra" Method="Query_Code_DetalleCompra">
+    <ElementType Name="Query_Code_DetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Compra" Method="DinamicQuery_Compra">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_CompraResult">
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa1" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_pago" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
+      <Column Name="Medio_Pago" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="SubTotal_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IVA_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Descuento_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total_Compra" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Fecha_Registro" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Compra" Method="Query_Code_Compra">
+    <ElementType Name="Query_Code_CompraResult">
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Compra" Method="Query_Compra">
+    <ElementType Name="Query_CompraResult">
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa1" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Tipo_pago" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
+      <Column Name="Medio_Pago" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="SubTotal_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IVA_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Descuento_Compra" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Total_Compra" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Fecha_Registro" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Compra" Method="Insert_Compra">
+    <Parameter Name="Num_Compra" Parameter="num_Compra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Empleado" Parameter="num_Empleado" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Proveedor" Parameter="num_Proveedor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Tipo_pago" Parameter="tipo_pago" Type="System.String" DbType="NVarChar(7)" />
+    <Parameter Name="Medio_Pago" Parameter="medio_Pago" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="SubTotal_Compra" Parameter="subTotal_Compra" Type="System.Double" DbType="Float" />
+    <Parameter Name="IVA_Compra" Parameter="iVA_Compra" Type="System.Double" DbType="Float" />
+    <Parameter Name="Descuento_Compra" Parameter="descuento_Compra" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total_Compra" Parameter="total_Compra" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="Autorizacion_Compra" Parameter="autorizacion_Compra" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Insert_CompraResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Compra" Method="Update_Compra">
+    <Parameter Name="Num_Compra" Parameter="num_Compra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Empleado" Parameter="num_Empleado" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Proveedor" Parameter="num_Proveedor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Tipo_pago" Parameter="tipo_pago" Type="System.String" DbType="NVarChar(7)" />
+    <Parameter Name="Medio_Pago" Parameter="medio_Pago" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="SubTotal_Compra" Parameter="subTotal_Compra" Type="System.Double" DbType="Float" />
+    <Parameter Name="IVA_Compra" Parameter="iVA_Compra" Type="System.Double" DbType="Float" />
+    <Parameter Name="Descuento_Compra" Parameter="descuento_Compra" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total_Compra" Parameter="total_Compra" Type="System.Decimal" DbType="Decimal(18,0)" />
+    <Parameter Name="Autorizacion_Compra" Parameter="autorizacion_Compra" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Update_CompraResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Delete_DetalleCompra" Method="Delete_DetalleCompra">
+    <Parameter Name="Num_DetalleCompra" Parameter="num_DetalleCompra" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Delete_EstadoCompra" Method="Delete_EstadoCompra">
+    <Parameter Name="DetalleCompra" Parameter="detalleCompra" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Delete_Compra" Method="Delete_Compra">
+    <Parameter Name="Num_Compra" Parameter="num_Compra" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Insert_DetalleCompra" Method="Insert_DetalleCompra">
+    <Parameter Name="Num_DetalleCompra" Parameter="num_DetalleCompra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Compra" Parameter="num_Compra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cantidad_Pedida" Parameter="cantidad_Pedida" Type="System.Double" DbType="Float" />
+    <Parameter Name="Cantidad_Comprada" Parameter="cantidad_Comprada" Type="System.Double" DbType="Float" />
+    <Parameter Name="PorcentajeDescuento" Parameter="porcentajeDescuento" Type="System.Double" DbType="Float" />
+    <Parameter Name="DescuentoProducto" Parameter="descuentoProducto" Type="System.Double" DbType="Float" />
+    <Parameter Name="Precio_Unitario" Parameter="precio_Unitario" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total_Compra" Parameter="total_Compra" Type="System.Double" DbType="Float" />
+    <ElementType Name="Insert_DetalleCompraResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_CanceledDetalleCompra" Method="DinamicQuery_CanceledDetalleCompra">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_CanceledDetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_RequestedDetalleCompra" Method="DinamicQuery_RequestedDetalleCompra">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_RequestedDetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_RequestedDetalleCompra" Method="Query_RequestedDetalleCompra">
+    <ElementType Name="Query_RequestedDetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_DetalleCompra" Method="Update_DetalleCompra">
+    <Parameter Name="Num_DetalleCompra" Parameter="num_DetalleCompra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Compra" Parameter="num_Compra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cantidad_Pedida" Parameter="cantidad_Pedida" Type="System.Double" DbType="Float" />
+    <Parameter Name="Cantidad_Comprada" Parameter="cantidad_Comprada" Type="System.Double" DbType="Float" />
+    <Parameter Name="PorcentajeDescuento" Parameter="porcentajeDescuento" Type="System.Double" DbType="Float" />
+    <Parameter Name="DescuentoProducto" Parameter="descuentoProducto" Type="System.Double" DbType="Float" />
+    <Parameter Name="Precio_Unitario" Parameter="precio_Unitario" Type="System.Double" DbType="Float" />
+    <Parameter Name="Total_Compra" Parameter="total_Compra" Type="System.Double" DbType="Float" />
+    <ElementType Name="Update_DetalleCompraResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_CanceledDetalleCompra" Method="Query_CanceledDetalleCompra">
+    <ElementType Name="Query_CanceledDetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Dinamic_DetalleCargoEmpleado" Method="Dinamic_DetalleCargoEmpleado">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="Dinamic_DetalleCargoEmpleadoResult">
+      <Column Name="Id_DetalleCargoImpuesto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido_RazonSocial" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Autorizado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Ingresado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Vigencia" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCargoAsignado" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_DetalleEmpleado" Method="Insert_DetalleEmpleado">
+    <Parameter Name="Num_Cargo" Parameter="num_Cargo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NumEmpleado" Parameter="numEmpleado" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Autorizado" Parameter="autorizado" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Ingresado" Parameter="ingresado" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Vigencia" Parameter="vigencia" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Insert_DetalleEmpleadoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_DetalleEmpleado" Method="Query_Code_DetalleEmpleado">
+    <ElementType Name="Query_Code_DetalleEmpleadoResult">
+      <Column Name="Id_DetalleCargoImpuesto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_DetalleCargoEmpleado" Method="Query_DetalleCargoEmpleado">
+    <ElementType Name="Query_DetalleCargoEmpleadoResult">
+      <Column Name="Id_DetalleCargoImpuesto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Pers_Empresa" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellido_RazonSocial" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Autorizado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Ingresado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Vigencia" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCargoAsignado" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_DetalleEmpleado" Method="Update_DetalleEmpleado">
+    <Parameter Name="Id_DetalleCargoImpuesto" Parameter="id_DetalleCargoImpuesto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Num_Cargo" Parameter="num_Cargo" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NumEmpleado" Parameter="numEmpleado" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Autorizado" Parameter="autorizado" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Ingresado" Parameter="ingresado" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Vigencia" Parameter="vigencia" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Update_DetalleEmpleadoResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Inventario" Method="Insert_Inventario">
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Existencia" Parameter="existencia" Type="System.Double" DbType="Float" />
+    <Parameter Name="Disponibilidad" Parameter="disponibilidad" Type="System.Double" DbType="Float" />
+    <Parameter Name="StockMin" Parameter="stockMin" Type="System.Double" DbType="Float" />
+    <Parameter Name="StockMax" Parameter="stockMax" Type="System.Double" DbType="Float" />
+    <ElementType Name="Insert_InventarioResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_EstadoCompra" Method="Update_EstadoCompra">
+    <Parameter Name="DetalleCompra" Parameter="detalleCompra" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TipoEstado" Parameter="tipoEstado" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Update_EstadoCompraResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_Moneda" Method="DinamicQuery_Moneda">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_MonedaResult">
+      <Column Name="Id_Moneda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Moneda" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Origen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha_Registro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_TasaCambio" Method="DinamicQuery_TasaCambio">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_TasaCambioResult">
+      <Column Name="Id_TasaCambio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Moneda" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="TipoCambio" Type="System.Decimal" DbType="Decimal(4,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Vigente" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaReg" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Moneda" Method="Insert_Moneda">
+    <Parameter Name="Moneda" Parameter="moneda" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Origen" Parameter="origen" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Insert_MonedaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_Moneda" Method="Query_Code_Moneda">
+    <ElementType Name="Query_Code_MonedaResult">
+      <Column Name="Id_Moneda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Code_TasaCambio" Method="Query_Code_TasaCambio">
+    <ElementType Name="Query_Code_TasaCambioResult">
+      <Column Name="Id_TasaCambio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_Moneda" Method="Query_Moneda">
+    <ElementType Name="Query_MonedaResult">
+      <Column Name="Id_Moneda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Moneda" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Origen" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha_Registro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_Moneda" Method="Update_Moneda">
+    <Parameter Name="Id_Moneda" Parameter="id_Moneda" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Moneda" Parameter="moneda" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="Origen" Parameter="origen" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Update_MonedaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_TasaMoneda" Method="Update_TasaMoneda">
+    <Parameter Name="Id_TasaCambio" Parameter="id_TasaCambio" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Vigente" Parameter="vigente" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Update_TasaMonedaResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_TasaCambio" Method="Insert_TasaCambio">
+    <Parameter Name="Moneda" Parameter="moneda" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TipoCambio" Parameter="tipoCambio" Type="System.Decimal" DbType="Decimal(16,2)" />
+    <Parameter Name="Vigente" Parameter="vigente" Type="System.String" DbType="NVarChar(2)" />
+    <ElementType Name="Insert_TasaCambioResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_TasaCambio" Method="Query_TasaCambio">
+    <ElementType Name="Query_TasaCambioResult">
+      <Column Name="Id_TasaCambio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Moneda" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="TipoCambio" Type="System.Decimal" DbType="Decimal(16,2)" CanBeNull="true" />
+      <Column Name="Vigente" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="FechaReg" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_TasaCambioActual" Method="Query_TasaCambioActual">
+    <ElementType Name="Query_TasaCambioActualResult">
+      <Column Name="TipoCambio" Type="System.Decimal" DbType="Decimal(16,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Insert_Rol" Method="Insert_Rol">
+    <Parameter Name="Tipo_Rol" Parameter="tipo_Rol" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Insert_RolResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_UserPass" Method="Update_UserPass">
+    <Parameter Name="NombreUsu" Parameter="nombreUsu" Type="System.String" DbType="NVarChar(35)" />
+    <Parameter Name="Pass" Parameter="pass" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="NewPass" Parameter="newPass" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="Update_UserPassResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Update_RestaDisponibilidad" Method="Update_RestaDisponibilidad">
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Disponibilidad" Parameter="disponibilidad" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Update_RestaInventario" Method="Update_RestaInventario">
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cantidad" Parameter="cantidad" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Update_SumaDisponibilidad" Method="Update_SumaDisponibilidad">
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Disponibilidad" Parameter="disponibilidad" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Update_SumaInventario" Method="Update_SumaInventario">
+    <Parameter Name="Num_Producto" Parameter="num_Producto" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cantidad" Parameter="cantidad" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DinamicQuery_DetalleCompra" Method="DinamicQuery_DetalleCompra">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_DetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_DetalleCompra" Method="Query_DetalleCompra">
+    <ElementType Name="Query_DetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DinamicQuery_ApprovedDetalleCompra" Method="DinamicQuery_ApprovedDetalleCompra">
+    <Parameter Name="query" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="DinamicQuery_ApprovedDetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Query_ApprovedDetalleCompra" Method="Query_ApprovedDetalleCompra">
+    <ElementType Name="Query_ApprovedDetalleCompraResult">
+      <Column Name="Num_DetalleCompra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Num_Compra" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Num_Producto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre_Prod" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Pedida" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Cantidad_Comprada" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PorcentajeDescuento" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="DescuentoProducto" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Precio_Unitario" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Total_Compra" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TipoEstado" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

@@ -1,0 +1,913 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{25DD07CC-F7BD-4691-BA9F-0F450F715181}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SisfacoDeskApp</RootNamespace>
+    <AssemblyName>SisfacoDeskApp</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publicar\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bunifu_UI_v1.52">
+      <HintPath>..\..\..\..\..\..\Downloads\Bunifu_UI_v1.52.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MetroFramework">
+      <HintPath>..\..\..\..\..\..\Desktop\Sisfaco\Desktop\SisfacoDeskApp\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business-Layer\Encrypt.cs" />
+    <Compile Include="Data-Layer\Connection.cs" />
+    <Compile Include="Data-Layer\ConnectionLinq.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConnectionLinq.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Admin-Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Admin-Menu.Designer.cs">
+      <DependentUpon>Admin-Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\BackUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\BackUp.Designer.cs">
+      <DependentUpon>BackUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Business-Area.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Business-Area.Designer.cs">
+      <DependentUpon>Business-Area.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\BusinessArea-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\BusinessArea-Query.Designer.cs">
+      <DependentUpon>BusinessArea-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\ChangePass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\ChangePass.Designer.cs">
+      <DependentUpon>ChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\DetailEmployee-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\DetailEmployee-Query.Designer.cs">
+      <DependentUpon>DetailEmployee-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\DetailEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\DetailEmployee.Designer.cs">
+      <DependentUpon>DetailEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Employee-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Employee-Query.Designer.cs">
+      <DependentUpon>Employee-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Employee-Submenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Employee-Submenu.Designer.cs">
+      <DependentUpon>Employee-Submenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Employee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Employee.Designer.cs">
+      <DependentUpon>Employee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\maintenance.Designer.cs">
+      <DependentUpon>maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Position-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Position-Query.Designer.cs">
+      <DependentUpon>Position-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Position.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Position.Designer.cs">
+      <DependentUpon>Position.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Query-Submenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Query-Submenu.Designer.cs">
+      <DependentUpon>Query-Submenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Role-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Role-Query.Designer.cs">
+      <DependentUpon>Role-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Role.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Role.Designer.cs">
+      <DependentUpon>Role.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\System-Submenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\System-Submenu.Designer.cs">
+      <DependentUpon>System-Submenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\User-Submenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\User-Submenu.Designer.cs">
+      <DependentUpon>User-Submenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Users-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Users-Query.Designer.cs">
+      <DependentUpon>Users-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Users.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Admon-Forms\Users.Designer.cs">
+      <DependentUpon>Users.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Alerts\AlertMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Alerts\AlertMessage.Designer.cs">
+      <DependentUpon>AlertMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Alerts\Control-Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Alerts\Control-Dialog.Designer.cs">
+      <DependentUpon>Control-Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Alerts\OkCancel-Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Alerts\OkCancel-Dialog.Designer.cs">
+      <DependentUpon>OkCancel-Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Brand-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Brand-Query.Designer.cs">
+      <DependentUpon>Brand-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Brand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Brand.Designer.cs">
+      <DependentUpon>Brand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Business-Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Business-Menu.Designer.cs">
+      <DependentUpon>Business-Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Category-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Category-Query.Designer.cs">
+      <DependentUpon>Category-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Category.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Category.Designer.cs">
+      <DependentUpon>Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Coin-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Coin-Query.Designer.cs">
+      <DependentUpon>Coin-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Coin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Coin.Designer.cs">
+      <DependentUpon>Coin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Country-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Country-Query.Designer.cs">
+      <DependentUpon>Country-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Country.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Country.Designer.cs">
+      <DependentUpon>Country.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Dealer-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Dealer-Query.Designer.cs">
+      <DependentUpon>Dealer-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Dealer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Dealer.Designer.cs">
+      <DependentUpon>Dealer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\EchangeRate-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\EchangeRate-Query.Designer.cs">
+      <DependentUpon>EchangeRate-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\EchangeRate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\EchangeRate.Designer.cs">
+      <DependentUpon>EchangeRate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Measure-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Measure-Query.Designer.cs">
+      <DependentUpon>Measure-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Measure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Measure.Designer.cs">
+      <DependentUpon>Measure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Product-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Product-Query.Designer.cs">
+      <DependentUpon>Product-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Product-Submenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Product-Submenu.Designer.cs">
+      <DependentUpon>Product-Submenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Product.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Product.Designer.cs">
+      <DependentUpon>Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Province-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Province-Query.Designer.cs">
+      <DependentUpon>Province-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Province.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Province.Designer.cs">
+      <DependentUpon>Province.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\SubCategory-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\SubCategory-Query.Designer.cs">
+      <DependentUpon>SubCategory-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\SubCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\SubCategory.Designer.cs">
+      <DependentUpon>SubCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Warranty-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Warranty-Query.Designer.cs">
+      <DependentUpon>Warranty-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Warranty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Business-Forms\Warranty.Designer.cs">
+      <DependentUpon>Warranty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\ApproveOrder-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\ApproveOrder-Query.Designer.cs">
+      <DependentUpon>ApproveOrder-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\Buy-Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\Buy-Menu.Designer.cs">
+      <DependentUpon>Buy-Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\CanceledOrder-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\CanceledOrder-Query.Designer.cs">
+      <DependentUpon>CanceledOrder-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\Cellar-Submenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\Cellar-Submenu.Designer.cs">
+      <DependentUpon>Cellar-Submenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\Order-Submenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\Order-Submenu.Designer.cs">
+      <DependentUpon>Order-Submenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\PurchaseOrder-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\PurchaseOrder-Query.Designer.cs">
+      <DependentUpon>PurchaseOrder-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\PurchaseOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\PurchaseOrder.Designer.cs">
+      <DependentUpon>PurchaseOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\ReceiveOrder-Query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Buy-Forms\ReceiveOrder-Query.Designer.cs">
+      <DependentUpon>ReceiveOrder-Query.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Calculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Calculator.Designer.cs">
+      <DependentUpon>Calculator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Archive-Forms\Archive-Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Archive-Forms\Archive-Menu.Designer.cs">
+      <DependentUpon>Archive-Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Configure-Forms\Configure-Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Configure-Forms\Configure-Menu.Designer.cs">
+      <DependentUpon>Configure-Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Home-Forms\Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Home-Forms\Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Inventory-Forms\Inventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Inventory-Forms\Inventory.Designer.cs">
+      <DependentUpon>Inventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Sell-Forms\Client.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Sell-Forms\Client.Designer.cs">
+      <DependentUpon>Client.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Sell-Forms\Sell-Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Sell-Forms\Sell-Menu.Designer.cs">
+      <DependentUpon>Sell-Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation-Layer\Sell-Forms\Sells.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentation-Layer\Sell-Forms\Sells.Designer.cs">
+      <DependentUpon>Sells.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Data-Layer\ConnectionLinq.dbml.layout">
+      <DependentUpon>ConnectionLinq.dbml</DependentUpon>
+    </None>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Admin-Menu.resx">
+      <DependentUpon>Admin-Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\BackUp.resx">
+      <DependentUpon>BackUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Business-Area.resx">
+      <DependentUpon>Business-Area.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\BusinessArea-Query.resx">
+      <DependentUpon>BusinessArea-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\ChangePass.resx">
+      <DependentUpon>ChangePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\DetailEmployee-Query.resx">
+      <DependentUpon>DetailEmployee-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\DetailEmployee.resx">
+      <DependentUpon>DetailEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Employee-Query.resx">
+      <DependentUpon>Employee-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Employee-Submenu.resx">
+      <DependentUpon>Employee-Submenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Employee.resx">
+      <DependentUpon>Employee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\maintenance.resx">
+      <DependentUpon>maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Position-Query.resx">
+      <DependentUpon>Position-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Position.resx">
+      <DependentUpon>Position.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Query-Submenu.resx">
+      <DependentUpon>Query-Submenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Role-Query.resx">
+      <DependentUpon>Role-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Role.resx">
+      <DependentUpon>Role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\System-Submenu.resx">
+      <DependentUpon>System-Submenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\User-Submenu.resx">
+      <DependentUpon>User-Submenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Users-Query.resx">
+      <DependentUpon>Users-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Admon-Forms\Users.resx">
+      <DependentUpon>Users.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Alerts\AlertMessage.resx">
+      <DependentUpon>AlertMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Alerts\Control-Dialog.resx">
+      <DependentUpon>Control-Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Alerts\OkCancel-Dialog.resx">
+      <DependentUpon>OkCancel-Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Brand-Query.resx">
+      <DependentUpon>Brand-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Brand.resx">
+      <DependentUpon>Brand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Business-Menu.resx">
+      <DependentUpon>Business-Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Category-Query.resx">
+      <DependentUpon>Category-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Category.resx">
+      <DependentUpon>Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Coin-Query.resx">
+      <DependentUpon>Coin-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Coin.resx">
+      <DependentUpon>Coin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Country-Query.resx">
+      <DependentUpon>Country-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Country.resx">
+      <DependentUpon>Country.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Dealer-Query.resx">
+      <DependentUpon>Dealer-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Dealer.resx">
+      <DependentUpon>Dealer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\EchangeRate-Query.resx">
+      <DependentUpon>EchangeRate-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\EchangeRate.resx">
+      <DependentUpon>EchangeRate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Measure-Query.resx">
+      <DependentUpon>Measure-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Measure.resx">
+      <DependentUpon>Measure.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Product-Query.resx">
+      <DependentUpon>Product-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Product-Submenu.resx">
+      <DependentUpon>Product-Submenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Product.resx">
+      <DependentUpon>Product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Province-Query.resx">
+      <DependentUpon>Province-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Province.resx">
+      <DependentUpon>Province.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\SubCategory-Query.resx">
+      <DependentUpon>SubCategory-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\SubCategory.resx">
+      <DependentUpon>SubCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Warranty-Query.resx">
+      <DependentUpon>Warranty-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Business-Forms\Warranty.resx">
+      <DependentUpon>Warranty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\ApproveOrder-Query.resx">
+      <DependentUpon>ApproveOrder-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\Buy-Menu.resx">
+      <DependentUpon>Buy-Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\CanceledOrder-Query.resx">
+      <DependentUpon>CanceledOrder-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\Cellar-Submenu.resx">
+      <DependentUpon>Cellar-Submenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\Order-Submenu.resx">
+      <DependentUpon>Order-Submenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\PurchaseOrder-Query.resx">
+      <DependentUpon>PurchaseOrder-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\PurchaseOrder.resx">
+      <DependentUpon>PurchaseOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Buy-Forms\ReceiveOrder-Query.resx">
+      <DependentUpon>ReceiveOrder-Query.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Calculator.resx">
+      <DependentUpon>Calculator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Archive-Forms\Archive-Menu.resx">
+      <DependentUpon>Archive-Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Configure-Forms\Configure-Menu.resx">
+      <DependentUpon>Configure-Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Home-Forms\Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Inventory-Forms\Inventory.resx">
+      <DependentUpon>Inventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Sell-Forms\Client.resx">
+      <DependentUpon>Client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Sell-Forms\Sell-Menu.resx">
+      <DependentUpon>Sell-Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentation-Layer\Sell-Forms\Sells.resx">
+      <DependentUpon>Sells.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Data-Layer\ConnectionLinq.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ConnectionLinq.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Login SISFACO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-Comercial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\archive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sell.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\business.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\administrator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\foto M.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-services-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\twitter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\facebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\instagram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\web.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shutdown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shutdown-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Purchase-Order.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\billing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\client.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\damaged-product.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\move-stock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Price.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\query.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Inventory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cellar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\limit-stock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\black-close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\advertencia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\word.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\word1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\homeimage.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\employee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BusinessArea.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\position.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Users.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\System.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\product.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dealer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cambio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\employeeposition.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newbuyorder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\approveorder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\recieveorder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maintenance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Anular.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\language.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\coin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\password.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\purchasesmade.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
